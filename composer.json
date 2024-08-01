@@ -1,28 +1,26 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "bobimicroweber/filament-dropdown-column",
+    "description": "Use custom dropdowns on filament tables as column",
     "keywords": [
-        ":vendor_name",
+        "bobimicroweber",
         "laravel",
-        ":package_slug"
+        "filament-dropdown-column"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/bobimicroweber/filament-dropdown-column",
     "support": {
-        "issues": "https://github.com/:vendor_slug/:package_slug/issues",
-        "source": "https://github.com/:vendor_slug/:package_slug"
+        "issues": "https://github.com/bobimicroweber/filament-dropdown-column/issues",
+        "source": "https://github.com/bobimicroweber/filament-dropdown-column"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Bozhidar Slaveykov",
+            "email": "bobi@microweber.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
-        "filament/filament": "^3.0",
-        "filament/forms": "^3.0",
         "filament/tables": "^3.0",
         "spatie/laravel-package-tools": "^1.15.0"
     },
@@ -36,18 +34,17 @@
         "pestphp/pest-plugin-laravel": "^2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "spatie/laravel-ray": "^1.26"
+        "phpstan/phpstan-phpunit": "^1.0"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "BobiMicroweber\\FilamentDropdownColumn\\": "src/",
+            "BobiMicroweber\\FilamentDropdownColumn\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/"
+            "BobiMicroweber\\FilamentDropdownColumn\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -67,10 +64,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "BobiMicroweber\\FilamentDropdownColumn\\FilamentDropdownColumnServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "FilamentDropdownColumn": "BobiMicroweber\\FilamentDropdownColumn\\Facades\\FilamentDropdownColumn"
             }
         }
     },

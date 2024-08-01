@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace BobiMicroweber\FilamentDropdownColumn\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentDropdownColumnCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-dropdown-column';
 
     public $description = 'My command';
 
