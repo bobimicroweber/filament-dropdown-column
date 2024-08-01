@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/bobimicroweber/filament-dropdown-column.svg?style=flat-square)](https://packagist.org/packages/bobimicroweber/filament-dropdown-column)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/bobimicroweber/filament-dropdown-column/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/bobimicroweber/filament-dropdown-column/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/bobimicroweber/filament-dropdown-column/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/bobimicroweber/filament-dropdown-column/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/bobimicroweber/filament-dropdown-column.svg?style=flat-square)](https://packagist.org/packages/bobimicroweber/filament-dropdown-column)
 
 ![banner](resources/assets/banner.jpg)
