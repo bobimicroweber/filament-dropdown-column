@@ -101,8 +101,8 @@ class FilamentDropdownColumnServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('filament-dropdown-column', __DIR__ . '/../resources/dist/components/filament-dropdown-column.js'),
-            Css::make('filament-dropdown-column-styles', __DIR__ . '/../resources/dist/filament-dropdown-column.css'),
-            Js::make('filament-dropdown-column-scripts', __DIR__ . '/../resources/dist/filament-dropdown-column.js'),
+//            Css::make('filament-dropdown-column-styles', __DIR__ . '/../resources/dist/filament-dropdown-column.css'),
+//            Js::make('filament-dropdown-column-scripts', __DIR__ . '/../resources/dist/filament-dropdown-column.js'),
         ];
     }
 
@@ -146,7 +146,7 @@ class FilamentDropdownColumnServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_filament-dropdown-column_table',
+
         ];
     }
 }
