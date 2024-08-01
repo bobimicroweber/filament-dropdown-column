@@ -110,7 +110,11 @@
 
             </x-slot>
 
-            <x-filament::dropdown.list>
+            <x-filament::dropdown.list
+
+                placement="bottom-end"
+
+            >
                 @foreach($options as $optionKey => $optionValue)
                     @php
                         $optionIcon = $getIcon($optionKey);
@@ -145,11 +149,10 @@
 
                        close();
 
-                    }">
-                        <div class="flex gap-2">
-                            <x-filament::icon :icon="$optionIcon" class="w-5 h-5"/>
-                            {{ $optionValue }}
-                        </div>
+                    }"
+                        :icon="$optionIcon"
+                    >
+                        {{ $optionValue }}
                     </x-filament::dropdown.list.item>
                 @endforeach
             </x-filament::dropdown.list>
