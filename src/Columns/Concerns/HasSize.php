@@ -2,7 +2,6 @@
 
 namespace BobiMicroweber\FilamentDropdownColumn\Columns\Concerns;
 
-
 use BobiMicroweber\FilamentDropdownColumn\Enums\ButtonSize;
 
 trait HasSize

@@ -2,7 +2,6 @@
 
 namespace BobiMicroweber\FilamentDropdownColumn\Enums;
 
-
 enum ButtonSize: string
 {
     case ExtraSmall = 'xs';
