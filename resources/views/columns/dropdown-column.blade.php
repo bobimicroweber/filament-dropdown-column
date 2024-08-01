@@ -1,108 +1,111 @@
 @php
-    $state = $getState();
-    $size = $getSize() ?? 'lg';
-    $stateColor = $getStateColor();
-    $stateIcon = $getStateIcon();
-    $hoverColor = $getHoverColor();
+    use Filament\Tables\Columns\IconColumn\IconColumnSize;
 
-    $iconSize ??= $size;
+    $arrayState = $stateString = $getState();
 
-    $iconSize = match ($iconSize) {
-        'xs' => 'h-3 w-3',
-        'sm' => 'h-4 w-4',
-        'md' => 'h-5 w-5',
-        'lg' => 'h-6 w-6',
-        'xl' => 'h-7 w-7',
-        default => $iconSize,
-    };
+    if ($arrayState instanceof \Illuminate\Support\Collection) {
+        $arrayState = $arrayState->all();
+    }
 
-    $iconClasses = \Illuminate\Support\Arr::toCssClasses([
-        match ($stateColor) {
-            'danger' => 'text-danger-500',
-            'primary' => 'text-primary-500',
-            'success' => 'text-success-500',
-            'info' => 'text-info-500',
-            'warning' => 'text-warning-500',
-            'secondary' => 'text-gray-400 dark:text-gray-500',
-            null => 'text-gray-700 dark:text-gray-200',
-            default => $stateColor,
-        },
-        match ($hoverColor) {
-            'danger' => 'hover:text-danger-600 dark:hover:text-danger-500',
-            'primary' => 'hover:text-primary-600 dark:hover:text-primary-500',
-            'success' => 'hover:text-success-600 dark:hover:text-success-500',
-            'info' => 'hover:text-info-600 dark:hover:text-info-500',
-            'warning' => 'hover:text-warning-600 dark:hover:text-warning-500',
-            'secondary' => 'hover:text-gray-300 dark:hover:text-gray-600',
-            null => 'hover:text-gray-700 dark:hover:text-gray-200',
-            default => 'hover:'.$hoverColor,
-        },
-    ]);
+    $arrayState = \Illuminate\Support\Arr::wrap($arrayState);
+
+    $options = $getOptions();
+    if ($stateString instanceof \BackedEnum) {
+        $stateString = $stateString->value;
+    }
+    $stateString = strval($stateString);
 @endphp
 
 <div
     wire:key="{{ $this->getId() }}.table.record.{{ $recordKey }}.column.{{ $getName() }}.toggle-column.{{ $state ? 'true' : 'false' }}"
 >
-    <div
-        x-data="{
-            error: undefined,
-            state: @js((bool) $state),
-            isLoading: false,
-        }"
-        wire:ignore
-        {{
-            $attributes
-                ->merge($getExtraAttributes(), escape: false)
-                ->class(['filament-toggle-icon-column'])
-        }}
-    >
-        <button
-            role="switch"
-            aria-checked="false"
-            x-bind:aria-checked="state.toString()"
-            x-on:click="
-                if (isLoading) {
-                    return
-                }
 
-                state = ! state
 
-                isLoading = true
-                response = await $wire.updateTableColumnState(@js($getName()), @js($recordKey), state)
-                error = response?.error ?? undefined
+    @if (count($arrayState))
 
-                if (error) {
-                    state = ! state
-                }
 
-                isLoading = false
-            "
-            x-tooltip="error"
-            x-bind:class="{
-                'opacity-50 pointer-events-none': isLoading,
-            }"
-            @disabled($isDisabled())
-            type="button"
-            class="items-center justify-center inline-flex shrink-0 h-10 w-10 border-transparent cursor-pointer outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
-        >
-            <span
-                {{
-                    $attributes
-                        ->merge($getExtraAttributes(), escape: false)
-                        ->class([
-                            "flex flex-wrap gap-1 filament-toggle-icon-column-size-{$size}",
-                            '' => ! $isInline(),
-                        ])
-                }}
-            >
-                @if ($stateIcon)
-                    <x-filament::icon
-                        :icon="$stateIcon"
-                        :size="$iconSize"
-                        :class="$iconClasses . ' ' . $iconSize"
-                    />
-                @endif
-            </span>
-        </button>
-    </div>
+        <x-filament::dropdown>
+            <x-slot name="trigger">
+
+
+        @foreach ($arrayState as $state)
+            @if ($icon = $getIcon($state))
+                @php
+                    $color = $getColor($state) ?? 'gray';
+                    $size = $getSize($state) ?? IconColumnSize::Large;
+                    $iconColor = 'white';
+                @endphp
+
+                        <x-filament::button :color="$color">
+
+                            <div class="flex gap-2 items-center">
+                <x-filament::icon
+                    :icon="$icon"
+                    @class([
+                        'fi-ta-icon-item',
+                        match ($size) {
+                            IconColumnSize::ExtraSmall, 'xs' => 'fi-ta-icon-item-size-xs h-3 w-3',
+                            IconColumnSize::Small, 'sm' => 'fi-ta-icon-item-size-sm h-4 w-4',
+                            IconColumnSize::Medium, 'md' => 'fi-ta-icon-item-size-md h-5 w-5',
+                            IconColumnSize::Large, 'lg' => 'fi-ta-icon-item-size-lg h-6 w-6',
+                            IconColumnSize::ExtraLarge, 'xl' => 'fi-ta-icon-item-size-xl h-7 w-7',
+                            IconColumnSize::TwoExtraLarge, IconColumnSize::ExtraExtraLarge, '2xl' => 'fi-ta-icon-item-size-2xl h-8 w-8',
+                            default => $size,
+                        },
+                        match ($iconColor) {
+                            'gray' => 'text-gray-400 dark:text-gray-500',
+                            default => 'fi-color-custom text-custom-500 dark:text-custom-400',
+                        },
+                        is_string($iconColor) ? 'fi-color-' . $iconColor : null,
+                    ])
+                    @style([
+                        \Filament\Support\get_color_css_variables(
+                            $iconColor,
+                            shades: [400, 500],
+                            alias: 'tables::columns.icon-column.item',
+                        ) => $iconColor !== 'gray',
+                    ])
+                />
+
+                                @if(isset($options[$stateString]))
+                                    {{ $options[$stateString] }}
+                                @else
+                                    Unknown
+                                @endif
+
+                                <x-filament::icon icon="heroicon-o-chevron-down" class="w-5 h-5" />
+
+                            </div>
+                        </x-filament::button>
+
+
+
+            @endif
+        @endforeach
+
+
+        </x-slot>
+
+        <x-filament::dropdown.list>
+            <x-filament::dropdown.list.item wire:click="openViewModal">
+                View
+            </x-filament::dropdown.list.item>
+
+            <x-filament::dropdown.list.item wire:click="openEditModal">
+                Edit
+            </x-filament::dropdown.list.item>
+
+            <x-filament::dropdown.list.item wire:click="openDeleteModal">
+                Delete
+            </x-filament::dropdown.list.item>
+        </x-filament::dropdown.list>
+    </x-filament::dropdown>
+
+
+    @elseif (($placeholder = $getPlaceholder()) !== null)
+        <x-filament-tables::columns.placeholder>
+            {{ $placeholder }}
+        </x-filament-tables::columns.placeholder>
+    @endif
+
 </div>

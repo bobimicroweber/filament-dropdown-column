@@ -4,22 +4,21 @@ namespace BobiMicroweber\FilamentDropdownColumn\Columns;
 
 use Closure;
 use Filament\Actions\Concerns\HasSize;
-use Filament\Forms\Components\Concerns\HasToggleColors;
-use Filament\Forms\Components\Concerns\HasToggleIcons;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\Concerns\CanBeValidated;
 use Filament\Tables\Columns\Concerns\CanUpdateState;
+use Filament\Tables\Columns\Concerns\HasColor;
+use Filament\Tables\Columns\Concerns\HasIcon;
 use Filament\Tables\Columns\Contracts\Editable;
+use Filament\Tables\Filters\Concerns\HasOptions;
 
-class DropdownColumn extends Column implements Editable
+class DropdownColumn extends Column
 {
-    use CanBeValidated;
     use CanUpdateState;
+    use HasIcon;
     use HasSize;
-    use HasToggleColors;
-    use HasToggleIcons;
-
-    protected string | Closure | null $hoverColor = null;
+    use HasOptions;
+    use HasColor;
 
     protected string $view = 'filament-dropdown-column::columns.dropdown-column';
 
@@ -27,54 +26,8 @@ class DropdownColumn extends Column implements Editable
     {
         parent::setUp();
 
-        $this->disableClick();
+        $this->disabledClick();
 
-        $this->rules(['boolean']);
     }
 
-    public function getStateIcon(): ?string
-    {
-        $state = $this->getState();
-
-        return $state ? $this->getOnIcon() : $this->getOffIcon();
-    }
-
-    public function getStateColor(): ?string
-    {
-        $state = $this->getState();
-
-        return $state ? $this->getOnColor() : $this->getOffColor();
-    }
-
-    public function getOffColor(): ?string
-    {
-        return $this->evaluate($this->offColor) ?? 'secondary';
-    }
-
-    public function getOnColor(): ?string
-    {
-        return $this->evaluate($this->onColor) ?? 'primary';
-    }
-
-    public function getOffIcon(): ?string
-    {
-        return $this->evaluate($this->offIcon) ?? 'heroicon-o-x-circle';
-    }
-
-    public function getOnIcon(): ?string
-    {
-        return $this->evaluate($this->onIcon) ?? 'heroicon-o-check-circle';
-    }
-
-    public function hoverColor(string | Closure | null $color = null): static
-    {
-        $this->hoverColor = $color;
-
-        return $this;
-    }
-
-    public function getHoverColor(): ?string
-    {
-        return $this->evaluate($this->hoverColor) ?? ($this->getState() ? $this->getOffColor() : $this->getOnColor());
-    }
 }
