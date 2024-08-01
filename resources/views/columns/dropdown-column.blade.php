@@ -19,10 +19,38 @@
 <div
     wire:key="{{ $this->getId() }}.table.record.{{ $recordKey }}.column.{{ $getName() }}.toggle-column.{{ $state ? 'true' : 'false' }}"
 >
-    
+
     @if (count($arrayState))
 
-        <x-filament::dropdown>
+        <div
+            x-data="{
+            error: undefined,
+
+            isLoading: false,
+
+            name: @js($getName()),
+
+            recordKey: @js($recordKey),
+
+            state: @js($stateString),
+        }"
+    "
+
+        {{
+   $attributes
+       ->merge($getExtraAttributes(), escape: false)
+       ->class([
+           'fi-ta-dropdown',
+           'px-3 py-4' => ! $isInline(),
+       ])
+}}
+    >
+
+
+
+        <x-filament::dropdown
+
+        >
             <x-slot name="trigger">
 
 
@@ -87,7 +115,37 @@
                     @php
                         $optionIcon = $getIcon($optionKey);
                     @endphp
-                    <x-filament::dropdown.list.item>
+                    <x-filament::dropdown.list.item
+
+                        x-data="{
+                           currentOptionKey: '{{ $optionKey }}'
+                        }"
+
+                        x-tooltip="error"
+                        x-bind:class="{
+                'opacity-50 pointer-events-none': isLoading,
+            }"
+                        x-on:click="async () => {
+
+                         isLoading = true
+
+                        const response = await $wire.updateTableColumnState(
+                            name,
+                            recordKey,
+                           currentOptionKey,
+                        )
+
+                        error = response?.error ?? undefined
+
+                        if (! error) {
+                            state = response
+                        }
+
+                        isLoading = false
+
+                       close();
+
+                    }">
                         <div class="flex gap-2">
                             <x-filament::icon :icon="$optionIcon" class="w-5 h-5"/>
                             {{ $optionValue }}
@@ -97,6 +155,9 @@
             </x-filament::dropdown.list>
 
         </x-filament::dropdown>
+
+
+        </div>
 
     @elseif (($placeholder = $getPlaceholder()) !== null)
         <x-filament-tables::columns.placeholder>
