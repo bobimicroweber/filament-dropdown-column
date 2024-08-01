@@ -38,8 +38,7 @@
     },
     "autoload": {
         "psr-4": {
-            "BobiMicroweber\\FilamentDropdownColumn\\": "src/",
-            "BobiMicroweber\\FilamentDropdownColumn\\Database\\Factories\\": "database/factories/"
+            "BobiMicroweber\\FilamentDropdownColumn\\": "src/"
         }
     },
     "autoload-dev": {
@@ -65,10 +64,7 @@
         "laravel": {
             "providers": [
                 "BobiMicroweber\\FilamentDropdownColumn\\FilamentDropdownColumnServiceProvider"
-            ],
-            "aliases": {
-                "FilamentDropdownColumn": "BobiMicroweber\\FilamentDropdownColumn\\Facades\\FilamentDropdownColumn"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",

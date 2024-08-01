@@ -2,7 +2,6 @@
 
 namespace BobiMicroweber\FilamentDropdownColumn;
 
-use BobiMicroweber\FilamentDropdownColumn\Commands\FilamentDropdownColumnCommand;
 use BobiMicroweber\FilamentDropdownColumn\Testing\TestsFilamentDropdownColumn;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
@@ -112,7 +111,7 @@ class FilamentDropdownColumnServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            FilamentDropdownColumnCommand::class,
+
         ];
     }
 
