@@ -13,12 +13,12 @@ use Filament\Tables\Filters\Concerns\HasOptions;
 
 class DropdownColumn extends Column implements Editable
 {
-    use HasSize;
     use CanBeValidated;
     use CanUpdateState;
     use HasColor;
     use HasIcon;
     use HasOptions;
+    use HasSize;
 
     protected string $view = 'filament-dropdown-column::columns.dropdown-column';
 
