@@ -1,4 +1,7 @@
-# Use custom dropdowns on filament tables as column
+# Filament Dropdown Column
+
+![advanced-usage](resources/screenshots/advanced-usage.png)
+
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/bobimicroweber/filament-dropdown-column.svg?style=flat-square)](https://packagist.org/packages/bobimicroweber/filament-dropdown-column)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/bobimicroweber/filament-dropdown-column/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/bobimicroweber/filament-dropdown-column/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -38,16 +41,36 @@ php artisan vendor:publish --tag="filament-dropdown-column-views"
 
 This is the contents of the published config file:
 
-```php
-return [
-];
-```
-
 ## Usage
 
+Simple
 ```php
-$filamentDropdownColumn = new BobiMicroweber\FilamentDropdownColumn();
-echo $filamentDropdownColumn->echoPhrase('Hello, BobiMicroweber!');
+DropdownColumn::make('is_active')
+    ->size('sm')
+    ->options([
+    1 => 'Published',
+    0 => 'Unpublished',
+])
+```
+
+Advanced with icons and colors
+```php
+DropdownColumn::make('is_active')
+    ->size('sm')
+    ->options([
+        1 => 'Published',
+        0 => 'Unpublished',
+    ])
+    ->icon(fn (string $state): string => match ($state) {
+        '0' => 'heroicon-o-clock',
+        '1' => 'heroicon-o-check',
+        default => 'heroicon-o-clock',
+    })
+    ->color(fn (string $state): string => match ($state) {
+        '0' => 'warning',
+        '1' => 'success',
+        default => 'gray',
+    }),
 ```
 
 ## Testing
