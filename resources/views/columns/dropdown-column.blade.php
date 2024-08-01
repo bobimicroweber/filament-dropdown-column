@@ -87,18 +87,19 @@
         </x-slot>
 
         <x-filament::dropdown.list>
-            <x-filament::dropdown.list.item wire:click="openViewModal">
-                View
-            </x-filament::dropdown.list.item>
-
-            <x-filament::dropdown.list.item wire:click="openEditModal">
-                Edit
-            </x-filament::dropdown.list.item>
-
-            <x-filament::dropdown.list.item wire:click="openDeleteModal">
-                Delete
-            </x-filament::dropdown.list.item>
+            @foreach($options as $optionKey => $optionValue)
+                @php
+                $optionIcon = $getIcon($optionKey);
+                @endphp
+                <x-filament::dropdown.list.item>
+                   <div class="flex gap-2">
+                       <x-filament::icon :icon="$optionIcon" class="w-5 h-5" />
+                       {{ $optionValue }}
+                   </div>
+                </x-filament::dropdown.list.item>
+            @endforeach
         </x-filament::dropdown.list>
+
     </x-filament::dropdown>
 
 
