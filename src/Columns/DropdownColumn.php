@@ -19,7 +19,7 @@ class DropdownColumn extends Column implements Editable
     use HasToggleColors;
     use HasToggleIcons;
 
-    protected string|Closure|null $hoverColor = null;
+    protected string | Closure | null $hoverColor = null;
 
     protected string $view = 'filament-dropdown-column::columns.dropdown-column';
 
@@ -66,7 +66,7 @@ class DropdownColumn extends Column implements Editable
         return $this->evaluate($this->onIcon) ?? 'heroicon-o-check-circle';
     }
 
-    public function hoverColor(string|Closure|null $color = null): static
+    public function hoverColor(string | Closure | null $color = null): static
     {
         $this->hoverColor = $color;
 
